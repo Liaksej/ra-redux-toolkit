@@ -1,5 +1,7 @@
-import Image from "next/image";
+"use client";
+
+import { Movie } from "@/components/Movie";
 
 export default function Home() {
-  return null;
+  return <Movie />;
 }
