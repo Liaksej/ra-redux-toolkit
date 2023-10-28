@@ -37,4 +37,4 @@ next-env.d.ts
 
 #jetBrains
 .idea
-!/.env.local
+.env.local
