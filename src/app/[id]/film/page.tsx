@@ -15,16 +15,17 @@ export default function MoviePage({ params }: { params: { id: string } }) {
   const router = useRouter();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="pl-24 pr-40 flex flex-col">Loading...</div>;
   }
 
   if (data === null) {
-    return <div>Movie not found</div>;
+    return <div className="pl-24 pr-40 flex flex-col">Movie not found</div>;
   }
 
   return (
-    <>
+    <div className="flex flex-col">
       <Image
+        className="self-end mr-80 pt-16 cursor-pointer"
         src={
           favorites
             ? "/star_FILL1_wght100_GRAD0_opsz24.svg"
@@ -35,14 +36,7 @@ export default function MoviePage({ params }: { params: { id: string } }) {
         alt="Favorite"
         onClick={() => {
           favorites
-            ? dispatch(
-                removeFilm({
-                  imdbID: params.id,
-                  Title: data.Title,
-                  Type: data.Type,
-                  Year: data.Year,
-                }),
-              )
+            ? dispatch(removeFilm(params.id))
             : dispatch(
                 addFilm({
                   imdbID: params.id,
@@ -58,7 +52,7 @@ export default function MoviePage({ params }: { params: { id: string } }) {
         onClick={() => router.back()}
         className="pl-24 pr-40 block"
       >
-        <div className="pt-20 flex justify-center">
+        <div className="flex justify-center">
           <Image
             className="rounded-lg"
             src={data.Poster}
@@ -79,6 +73,6 @@ export default function MoviePage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </Link>
-    </>
+    </div>
   );
 }

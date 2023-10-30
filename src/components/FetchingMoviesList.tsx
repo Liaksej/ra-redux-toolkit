@@ -11,7 +11,7 @@ export function FetchingMoviesList() {
   const { data, isLoading, error } = useGetMoviesQuery(state);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="pl-24 pr-40 flex flex-col">Loading...</div>;
   }
 
   if (state === "") {
@@ -19,7 +19,7 @@ export function FetchingMoviesList() {
   }
 
   if (data["Response"] === "False") {
-    return <div>{data["Error"]}</div>;
+    return <div className="pl-24 pr-40 flex flex-col">{data["Error"]}</div>;
   }
 
   if (data["Response"] === "True" && data["Search"]) {
