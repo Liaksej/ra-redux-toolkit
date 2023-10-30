@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { StoreProvider } from "@/redux/StoreProvider";
 import { ReactNode } from "react";
+import { StoreProvider } from "@/redux/StoreProvider";
+import { Search } from "@/components/Search";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,8 +15,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <StoreProvider>{children}</StoreProvider>
+      <body className={`${inter.className} antialiased`}>
+        <div className="w-3/4 mx-auto">
+          <StoreProvider>
+            <Search />
+          </StoreProvider>
+          {children}
+        </div>
       </body>
     </html>
   );
