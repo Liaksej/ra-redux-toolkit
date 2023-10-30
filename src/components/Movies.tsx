@@ -7,22 +7,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Search } from "@/redux/service/omdbApiTypes";
+import { ShortFilmInfo } from "@/redux/service/omdbApiTypes";
 import { Film } from "@/redux/app/slicesStateTypes";
 import { useRouter, usePathname } from "next/navigation";
+import { useGetMoviesQuery } from "@/redux/service/omdbApi";
+import { useState } from "react";
 
 interface MoviesProps {
-  data: Search[] | Film[];
+  data: ShortFilmInfo[] | Film[];
 }
 
 export function Movies({ data }: MoviesProps) {
   const router = useRouter();
   const pathname = usePathname();
+
   return (
     <div className="pl-24 pr-40 flex flex-col">
       <Table>
         <TableCaption>
-          {pathname === "/" ? "A list of movies" : "A list of favorite movies"}
+          {pathname === "/favorites" && "A list of favorite movies"}
         </TableCaption>
         <TableHeader>
           <TableRow>
@@ -32,7 +35,7 @@ export function Movies({ data }: MoviesProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((movie: Search | Film) => (
+          {data.map((movie: ShortFilmInfo | Film) => (
             <TableRow
               key={movie.imdbID}
               onClick={() => router.push(`/${movie.imdbID}/film`)}

@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { MovieCard, Response } from "@/redux/service/omdbApiTypes";
 
 export const omdbApi = createApi({
   reducerPath: "omdbApi",
@@ -6,12 +7,12 @@ export const omdbApi = createApi({
     baseUrl: `http://www.omdbapi.com/`,
   }),
   endpoints: (builder) => ({
-    getMovies: builder.query({
-      query: (title) =>
-        `?s=${title}&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`,
+    getMovies: builder.query<Response, { title: string; page: number }>({
+      query: ({ title, page }) =>
+        `?s=${title}&page=${page}&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`,
     }),
-    getMovie: builder.query({
-      query: (imdbID) =>
+    getMovie: builder.query<MovieCard, { imdbID: string }>({
+      query: ({ imdbID }) =>
         `?i=${imdbID}&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`,
     }),
   }),

@@ -1,10 +1,10 @@
 export interface Response {
-  Search: Search[];
+  Search: ShortFilmInfo[];
   totalResults: string;
   Response: string;
 }
 
-export interface Search {
+export interface ShortFilmInfo {
   Title: string;
   Year: string;
   imdbID: string;
@@ -16,28 +16,28 @@ export interface MovieCard {
   Title: string;
   Year: string;
   Rated: string;
-  Released: string;
+  Released?: string;
   Runtime: string;
   Genre: string;
   Director: string;
-  Writer: string;
+  Writer?: string;
   Actors: string;
-  Plot: string;
-  Language: string;
-  Country: string;
-  Awards: string;
+  Plot?: string;
+  Language?: string;
+  Country?: string;
+  Awards?: string;
   Poster: string;
-  Ratings: Rating[];
-  Metascore: string;
+  Ratings?: Rating[];
+  Metascore?: string;
   imdbRating: string;
-  imdbVotes: string;
+  imdbVotes?: string;
   imdbID: string;
   Type: string;
-  DVD: string;
-  BoxOffice: string;
-  Production: string;
-  Website: string;
-  Response: string;
+  DVD?: string;
+  BoxOffice?: string;
+  Production?: string;
+  Website?: string;
+  Response?: string;
 }
 
 export interface Rating {

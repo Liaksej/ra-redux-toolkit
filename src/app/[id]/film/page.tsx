@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 export default function MoviePage({ params }: { params: { id: string } }) {
   const dispatch = useDispatch();
-  const { data, isLoading, error } = useGetMovieQuery(params.id);
+  const { data, isLoading } = useGetMovieQuery({ imdbID: params.id });
   const favorites = useSelector((state) => selectFavorite(state, params.id));
   const router = useRouter();
 
@@ -40,9 +40,9 @@ export default function MoviePage({ params }: { params: { id: string } }) {
             : dispatch(
                 addFilm({
                   imdbID: params.id,
-                  Title: data.Title,
-                  Type: data.Type,
-                  Year: data.Year,
+                  Title: data?.Title,
+                  Type: data?.Type,
+                  Year: data?.Year,
                 }),
               );
         }}
@@ -53,22 +53,22 @@ export default function MoviePage({ params }: { params: { id: string } }) {
         className="pl-24 pr-40 block"
       >
         <div className="flex justify-center">
-          <Image
+          <img
             className="rounded-lg"
-            src={data.Poster}
+            src={data!.Poster}
             width={300}
             height={446}
-            alt={`Постер ${data.Title}`}
+            alt={`Постер ${data?.Title}`}
           />
           <div className="pl-4 divide-solid divide-y flex flex-col justify-center ">
-            <p className="font-bold text-">{data.Title}</p>
-            <p className="pt-3">{data.Year}</p>
-            <p className="pt-3">{data.Genre}</p>
-            <p className="pt-3">{data.Runtime}</p>
-            <p className="pt-3">{data.Director}</p>
-            <p className="pt-3">{data.Actors}</p>
+            <p className="font-bold text-">{data?.Title}</p>
+            <p className="pt-3">{data?.Year}</p>
+            <p className="pt-3">{data?.Genre}</p>
+            <p className="pt-3">{data?.Runtime}</p>
+            <p className="pt-3">{data?.Director}</p>
+            <p className="pt-3">{data?.Actors}</p>
             <p className="pt-3">
-              Rating IMDb: <span className="font-bold">{data.imdbRating}</span>
+              Rating IMDb: <span className="font-bold">{data?.imdbRating}</span>
             </p>
           </div>
         </div>
