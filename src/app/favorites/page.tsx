@@ -1,3 +1,10 @@
-export default function Page() {
-  return <div className="w-3/4 mx-auto">Lalalala</div>;
+import { StoreProvider } from "@/redux/StoreProvider";
+import { FavoriteMoviesList } from "@/components/FavoriteMoviesList";
+
+export default function Favorites() {
+  return (
+    <StoreProvider>
+      <FavoriteMoviesList />
+    </StoreProvider>
+  );
 }

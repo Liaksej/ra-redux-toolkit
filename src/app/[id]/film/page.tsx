@@ -1,9 +1,84 @@
-import Link from "next/link";
+"use client";
 
-export default function Page() {
+import Link from "next/link";
+import { useGetMovieQuery } from "@/redux/service/omdbApi";
+import Image from "next/image";
+import { selectFavorite } from "@/redux/app/selector";
+import { useDispatch, useSelector } from "react-redux";
+import { addFilm, removeFilm } from "@/redux/app/slices";
+import { useRouter } from "next/navigation";
+
+export default function MoviePage({ params }: { params: { id: string } }) {
+  const dispatch = useDispatch();
+  const { data, isLoading, error } = useGetMovieQuery(params.id);
+  const favorites = useSelector((state) => selectFavorite(state, params.id));
+  const router = useRouter();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (data === null) {
+    return <div>Movie not found</div>;
+  }
+
   return (
-    <Link href="/">
-      <div>Страница фильма</div>
-    </Link>
+    <>
+      <Image
+        src={
+          favorites
+            ? "/star_FILL1_wght100_GRAD0_opsz24.svg"
+            : "/star_FILL0_wght100_GRAD0_opsz24.svg"
+        }
+        width={35}
+        height={35}
+        alt="Favorite"
+        onClick={() => {
+          favorites
+            ? dispatch(
+                removeFilm({
+                  imdbID: params.id,
+                  Title: data.Title,
+                  Type: data.Type,
+                  Year: data.Year,
+                }),
+              )
+            : dispatch(
+                addFilm({
+                  imdbID: params.id,
+                  Title: data.Title,
+                  Type: data.Type,
+                  Year: data.Year,
+                }),
+              );
+        }}
+      />
+      <Link
+        href="#"
+        onClick={() => router.back()}
+        className="pl-24 pr-40 block"
+      >
+        <div className="pt-20 flex justify-center">
+          <Image
+            className="rounded-lg"
+            src={data.Poster}
+            width={300}
+            height={446}
+            alt={`Постер ${data.Title}`}
+          />
+          <div className="pl-4 divide-solid divide-y flex flex-col justify-center ">
+            <p className="font-bold text-">{data.Title}</p>
+            <p className="pt-3">{data.Year}</p>
+            <p className="pt-3">{data.Genre}</p>
+            <p className="pt-3">{data.Runtime}</p>
+            <p className="pt-3">{data.Director}</p>
+            <p className="pt-3">{data.Actors}</p>
+            <p className="pt-3">
+              Rating IMDb: <span className="font-bold">{data.imdbRating}</span>
+            </p>
+          </div>
+        </div>
+      </Link>
+    </>
   );
 }

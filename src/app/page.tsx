@@ -1,11 +1,10 @@
-import { Movie } from "@/components/Movie";
+import { FetchingMoviesList } from "@/components/FetchingMoviesList";
 import { StoreProvider } from "@/redux/StoreProvider";
-import { Search } from "@/components/Search";
 
 export default function Home() {
   return (
     <StoreProvider>
-      <Movie />
+      <FetchingMoviesList />
     </StoreProvider>
   );
 }

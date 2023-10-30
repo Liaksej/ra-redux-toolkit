@@ -12,14 +12,17 @@ export function Search() {
   const router = useRouter();
 
   const searchHandler = useDebouncedCallback((name: string) => {
-    if (pathname !== "/" && name) router.push("/");
+    if (pathname !== "/") router.push("/");
 
     dispatch(setName(name));
   }, 400);
 
   return (
-    <form className="flex gap-3 p-2.5">
-      <label htmlFor="search" className="text-sm">
+    <div className="flex gap-3 p-2.5">
+      <label
+        htmlFor="search"
+        className="self-center text-lg font-bold text-blue-500"
+      >
         Поиск
       </label>
       <input
@@ -33,6 +36,6 @@ export function Search() {
       >
         Избранное
       </Link>
-    </form>
+    </div>
   );
 }
