@@ -10,8 +10,6 @@ import {
 import { ShortFilmInfo } from "@/redux/service/omdbApiTypes";
 import { Film } from "@/redux/app/slicesStateTypes";
 import { useRouter, usePathname } from "next/navigation";
-import { useGetMoviesQuery } from "@/redux/service/omdbApi";
-import { useState } from "react";
 
 interface MoviesProps {
   data: ShortFilmInfo[] | Film[];

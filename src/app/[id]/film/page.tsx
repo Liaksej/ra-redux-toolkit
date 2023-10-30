@@ -11,7 +11,8 @@ import { useRouter } from "next/navigation";
 export default function MoviePage({ params }: { params: { id: string } }) {
   const dispatch = useDispatch();
   const { data, isLoading } = useGetMovieQuery({ imdbID: params.id });
-  const favorites = useSelector((state) => selectFavorite(state, params.id));
+  const favorite = useSelector((state) => selectFavorite(state, params.id));
+
   const router = useRouter();
 
   if (isLoading) {
@@ -27,7 +28,7 @@ export default function MoviePage({ params }: { params: { id: string } }) {
       <Image
         className="self-end mr-80 pt-16 cursor-pointer"
         src={
-          favorites
+          favorite
             ? "/star_FILL1_wght100_GRAD0_opsz24.svg"
             : "/star_FILL0_wght100_GRAD0_opsz24.svg"
         }
@@ -35,7 +36,7 @@ export default function MoviePage({ params }: { params: { id: string } }) {
         height={35}
         alt="Favorite"
         onClick={() => {
-          favorites
+          favorite
             ? dispatch(removeFilm(params.id))
             : dispatch(
                 addFilm({
