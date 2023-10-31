@@ -4,7 +4,7 @@ import { MovieCard, Response } from "@/redux/service/omdbApiTypes";
 export const omdbApi = createApi({
   reducerPath: "omdbApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://www.omdbapi.com/`,
+    baseUrl: `https://www.omdbapi.com/`,
   }),
   endpoints: (builder) => ({
     getMovies: builder.query<Response, { title: string; page: number }>({
