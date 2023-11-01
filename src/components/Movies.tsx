@@ -19,6 +19,10 @@ export function Movies({ data }: MoviesProps) {
   const router = useRouter();
   const pathname = usePathname();
 
+  if (!data || data.length === 0) {
+    return null;
+  }
+
   return (
     <div className="pl-24 pr-40 flex flex-col">
       <Table>
